@@ -1,21 +1,25 @@
-<div class="select-form">
-  <mat-form-field appearance="outline">
-    <mat-label>Семейное положение</mat-label>
-    <mat-select [(ngModel)]="selectedMaritalStatus">
-      <mat-option *ngFor="let status of maritalStatusOptions" [value]="status">
-        {{ status }}
-      </mat-option>
-    </mat-select>
-    <mat-hint *ngIf="!selectedMaritalStatus">Поле обязательно</mat-hint>
-  </mat-form-field>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div *ngFor="let field of formData">
+    <label>{{ field.label }}</label>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Место рождения</mat-label>
-    <mat-select [(ngModel)]="selectedBirthPlace">
-      <mat-option *ngFor="let place of birthPlaceOptions" [value]="place">
-        {{ place }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
+    <ng-container *ngIf="field.type === 'input-selector'; else textInput">
+      <select [formControlName]="field.controllerName">
+        <option *ngFor="let option of field.choices" [value]="option.value">
+          {{ option.text }}
+        </option>
+      </select>
+    </ng-container>
 
+    <ng-template #textInput>
+      <input [type]="field.type === 'input-number' ? 'number' : 'text'"
+             [formControlName]="field.controllerName"
+             [placeholder]="field.label" />
+    </ng-template>
+
+    <div *ngIf="form.get(field.controllerName)?.invalid && (form.get(field.controllerName)?.touched || form.get(field.controllerName)?.dirty)">
+      <small *ngIf="form.get(field.controllerName)?.hasError('required')">{{ field.label }} — обязательное поле.</small>
+    </div>
+  </div>
+
+  <button type="submit">Отправить</button>
+</form>

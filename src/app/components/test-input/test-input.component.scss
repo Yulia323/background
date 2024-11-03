@@ -1,6 +1,21 @@
-@import 'custom-theme.scss';
-
-.select-form {
-  display: flex;
-  gap: 20px;
+form {
+  div {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    gap: 30px;
+    align-items: center;
+  }
 }
+
+input, select {
+  width: 500px;
+  height: 44px;
+  background: transparent;
+  border-radius: 3px;
+  border: 1px solid #C3C3C3;
+}
+
+input:focus {
+  outline: none;
+}
+
