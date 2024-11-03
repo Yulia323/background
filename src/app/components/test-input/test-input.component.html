@@ -1,0 +1,21 @@
+<div class="select-form">
+  <mat-form-field appearance="outline">
+    <mat-label>Семейное положение</mat-label>
+    <mat-select [(ngModel)]="selectedMaritalStatus">
+      <mat-option *ngFor="let status of maritalStatusOptions" [value]="status">
+        {{ status }}
+      </mat-option>
+    </mat-select>
+    <mat-hint *ngIf="!selectedMaritalStatus">Поле обязательно</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Место рождения</mat-label>
+    <mat-select [(ngModel)]="selectedBirthPlace">
+      <mat-option *ngFor="let place of birthPlaceOptions" [value]="place">
+        {{ place }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
